@@ -21,15 +21,15 @@ OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
 # CHECK IMAGE
 # =========================
 if not IMAGE_PATH.exists():
-    print(f"❌ Image not found at: {IMAGE_PATH}")
+    print(f" Image not found at: {IMAGE_PATH}")
     sys.exit(1)
 else:
-    print(f"✅ Found image: {IMAGE_PATH}")
+    print(f" Found image: {IMAGE_PATH}")
 
 # =========================
 # 1️⃣ OBJECT DETECTION
 # =========================
-print("\n🔍 Running YOLOv8 Object Detection...")
+print("\n Running YOLOv8 Object Detection...")
 model_detect = YOLO("yolov8n.pt")
 
 results_detect = model_detect.predict(
@@ -38,12 +38,12 @@ results_detect = model_detect.predict(
     project=str(OUTPUT_FOLDER),
     name="Detection_Results"
 )
-print("✅ Object detection done! Check 'YOLO_Outputs/Detection_Results'.")
+print(" Object detection done! Check 'YOLO_Outputs/Detection_Results'.")
 
 # =========================
 # 2️⃣ IMAGE SEGMENTATION
 # =========================
-print("\n🧩 Running YOLOv8 Segmentation (Persons only)...")
+print("\n Running YOLOv8 Segmentation (Persons only)...")
 model_seg = YOLO("yolov8n-seg.pt")
 
 results_seg = model_seg.predict(
@@ -53,12 +53,12 @@ results_seg = model_seg.predict(
     project=str(OUTPUT_FOLDER),
     name="Segmentation_Results"
 )
-print("✅ Segmentation complete! Check 'YOLO_Outputs/Segmentation_Results'.")
+print(" Segmentation complete! Check 'YOLO_Outputs/Segmentation_Results'.")
 
 # =========================
 # 3️⃣ MODEL EVALUATION
 # =========================
-print("\n📊 Evaluating model performance (using coco128 demo)...")
+print("\n Evaluating model performance (using coco128 demo)...")
 metrics = model_detect.val(data='coco128.yaml')
 
 print(f"\nPrecision: {metrics.box.mp:.3f}")
@@ -100,8 +100,9 @@ try:
     plt.savefig(OUTPUT_FOLDER / "confusion_matrix.png")
     plt.close()
 
-    print("🖼️ Graphs saved in:", OUTPUT_FOLDER)
+    print(" Graphs saved in:", OUTPUT_FOLDER)
 except Exception as e:
-    print("⚠️ Visualization skipped:", e)
+    print(" Visualization skipped:", e)
 
-print("\n🎉 All results generated successfully! Check 'YOLO_Outputs' folder.")
+print("\nAll results generated successfully! Check 'YOLO_Outputs' folder.")
+
